@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dominio;
@@ -69,6 +70,21 @@ namespace TesteDeUnidade.Dominio.TabelasDeCampeonato
       var vencedoresEncontrados = quartaDeFinal.ObterVencedores();
 
       CollectionAssert.AreEqual(vencedoresEsperados, vencedoresEncontrados);
+    }
+
+    [Test]
+    public void DeveValidarAQuantidadeDeFilmeNecessarioParaQuartaDeFinal(){
+      var erroEsperado = "Para realizar a quarta de final é necessário ter 8 filmes";
+      Filmes.Add(new Filme("9", "O escolhido", 2020, 4.5m));
+
+      Assert.Throws<Exception>(() => new QuartaDeFinal(Filmes), erroEsperado);
+    }
+
+    [Test]
+    public void DeveValidarAQuantidadeDeFilmeQuandoForIgualAOitoParaQuartaDeFinal(){
+      var quartaDeFinal = new QuartaDeFinal(Filmes);
+
+      Assert.AreEqual(Filmes.Count(), quartaDeFinal.Filmes.Count());
     }
   }
 }

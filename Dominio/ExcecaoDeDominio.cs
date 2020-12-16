@@ -4,34 +4,29 @@ using System.Linq;
 
 namespace Dominio
 {
-    public class DominioException
+    public class ExcecaoDeDominio
     {
-
-        public const int QuantidadeMaximaDeSelecaoDeFilmesNaQuartaDeFinal = 8;
         public List<string> MensagensDeErros { get; private set; }
-
-
-        public DominioException()
+        public ExcecaoDeDominio()
         {
             MensagensDeErros = new List<string>();
         }
 
-        public List<String> quantidadeDeFilmesPermitidosParaSelecaoNaQuartafinal(int quantidadeDeFilme, string mensagemDeErro)
+        public ExcecaoDeDominio Quando(bool condicao, string mensagemDeErro)
         {
-            if (quantidadeDeFilme != QuantidadeMaximaDeSelecaoDeFilmesNaQuartaDeFinal)
+            if (condicao)
             {
                 MensagensDeErros.Add(mensagemDeErro);
             }
-            return MensagensDeErros;
+            return this;
         }
 
-        public lancar()
+        public void Lancar()
         {
             if (MensagensDeErros.Count() > 0 )
             {
                 throw new Exception(MensagensDeErros.First());
             }
         }
-
     }
 }

@@ -5,9 +5,13 @@ namespace Dominio.TabelasDeCampeonato
 {
   public class QuartaDeFinal
   {
+    private const int QuantidadeDeFilmePermitido = 8;
     public List<Filme> Filmes { get; private set; }
     public QuartaDeFinal(List<Filme> filmes)
     {
+      new ExcecaoDeDominio()
+        .Quando(filmes.Count() != QuantidadeDeFilmePermitido, "Para realizar a quarta de final é necessário ter 8 filmes")
+        .Lancar();
       Filmes = filmes.OrderBy(filme => filme.Titulo).ToList();
     }
 
@@ -26,17 +30,18 @@ namespace Dominio.TabelasDeCampeonato
       return grupos;
     }
 
-    public List<Filme> ObterVencedores(){
-        var grupos = ObterGrupos();
+    public List<Filme> ObterVencedores()
+    {
+      var grupos = ObterGrupos();
 
-        var vencedores = new List<Filme>();
-        foreach (var grupo in grupos)
-        {
-          var maiorNota = grupo.Value.Max(g => g.Nota);
-          var vencedor = grupo.Value.First(g => g.Nota == maiorNota);
-          vencedores.Add(vencedor);
-        }
-        return vencedores;
+      var vencedores = new List<Filme>();
+      foreach (var grupo in grupos)
+      {
+        var maiorNota = grupo.Value.Max(g => g.Nota);
+        var vencedor = grupo.Value.First(g => g.Nota == maiorNota);
+        vencedores.Add(vencedor);
+      }
+      return vencedores;
     }
   }
 }
