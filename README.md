@@ -15,7 +15,7 @@
 
 # FrontEnd
 
-## Available Scripts in web-app
+## Available Scripts in /web-app
 
 ### `npm install`
 Install all dependencies
